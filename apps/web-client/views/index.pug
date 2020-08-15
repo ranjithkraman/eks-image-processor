@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  .container(style='margin-top: 20px;')
+    .row
+
+      //- Error Alert
+      if err
+        .col-lg-12.col-sm-12.col-12
+          .alert.alert-danger
+            | Error: #{err}
+
+      //- Upload Form
+      .col-lg-12.col-sm-12.col-12
+        h4 Upload new images
+        .form-group.page-header.text-center
+          form(method='post', enctype='multipart/form-data', action='/photo')
+            .input-group
+              label.input-group-btn
+                span.btn.btn-primary
+                  | Browse… 
+                  input(type='file', name='uploadedImage', style='display: none;')
+              input.form-control(type='text', readonly='')
+            span.help-block
+              | Select a file to upload
+            label(class='btn btn-default btn-file') Submit
+                .hidden
+                  input(type='submit', name='uploadImage')
+
+      //- Image List
+      if urls
+        .col-lg-12.col-sm-12.col-12
+          for url in urls
+            .col-xs-4
+              .thumbnail
+                img(src=url)

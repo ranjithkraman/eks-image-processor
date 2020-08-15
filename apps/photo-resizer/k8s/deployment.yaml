@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: photo-resizer
+    app.kubernetes.io/instance: picture-upload-demo
+    app.kubernetes.io/version: '1.0.0'
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: picture-upload
+    app.kubernetes.io/managed-by: kubectl
+  name: photo-resizer-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: photo-resizer
+  template:
+    metadata:
+      labels:
+        app: photo-resizer
+    spec:
+      containers:
+        - image: 615684958859.dkr.ecr.us-east-1.amazonaws.com/photo-resizer:latest
+          imagePullPolicy: Always
+          name: photo-resizer
+          ports:
+            - containerPort: 3002
+
